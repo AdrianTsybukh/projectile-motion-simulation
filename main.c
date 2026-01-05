@@ -89,8 +89,8 @@ int main(void) {
         float h = fabsf(mousePos.y - obstacleStartPos.y);
 
         if (w > 5 && h > 5) {
-	  map[obstacleCount] = (Obstacle){{ x, y, w, h }, GRAY};
-	  obstacleCount++;
+          map[obstacleCount] = (Obstacle){{ x, y, w, h }, GRAY};
+          obstacleCount++;
         }
       }
     }
@@ -125,25 +125,25 @@ int main(void) {
       }
 
       for (int i = 0; i < obstacleCount; i++) {
-	Vector2 closestPoint = {
-	  .x = Clamp(ball.position.x, map[i].rect.x, map[i].rect.x + map[i].rect.width),
-	  .y = Clamp(ball.position.y, map[i].rect.y, map[i].rect.y + map[i].rect.height),
-	};
+        Vector2 closestPoint = {
+          .x = Clamp(ball.position.x, map[i].rect.x, map[i].rect.x + map[i].rect.width),
+          .y = Clamp(ball.position.y, map[i].rect.y, map[i].rect.y + map[i].rect.height),
+        };
 
-	Vector2 diff = Vector2Subtract(ball.position, closestPoint);
-	float currentDist = Vector2Length(diff);
+        Vector2 diff = Vector2Subtract(ball.position, closestPoint);
+        float currentDist = Vector2Length(diff);
 
-	if (currentDist < BALL_RADIUS) {
-	  Vector2 n;
-	  if (currentDist <= 0.0001f) n = (Vector2){ 0, -1 };
-	  else n = Vector2Scale(diff, 1.0f / currentDist);
+        if (currentDist < BALL_RADIUS) {
+          Vector2 n;
+          if (currentDist <= 0.0001f) n = (Vector2){ 0, -1 };
+          else n = Vector2Scale(diff, 1.0f / currentDist);
 
-	  float penetration = BALL_RADIUS - currentDist;
-	  ball.position = Vector2Add(ball.position, Vector2Scale(n, penetration));
+          float penetration = BALL_RADIUS - currentDist;
+          ball.position = Vector2Add(ball.position, Vector2Scale(n, penetration));
 
-	  ball.velocity = Vector2Reflect(ball.velocity, n);
-	  ball.velocity = Vector2Scale(ball.velocity, 0.75f);
-	}
+          ball.velocity = Vector2Reflect(ball.velocity, n);
+          ball.velocity = Vector2Scale(ball.velocity, 0.75f);
+        }
       }
 
       if (hit) {
@@ -151,8 +151,8 @@ int main(void) {
         ball.velocity = Vector2Scale(ball.velocity, 0.75f);
 
         if (Vector2Length(ball.velocity) < 40.0f) {
-	  ball.velocity = (Vector2){ 0, 0 };
-	  isBallMoving = false;
+          ball.velocity = (Vector2){ 0, 0 };
+          isBallMoving = false;
         }
       }
     }
